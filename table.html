@@ -110,18 +110,17 @@
 			import TWEEN from 'three/addons/libs/tween.module.js';
 			import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 			import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+			const table =[];
 			function fetchData() {
    				gapi.client.sheets.spreadsheets.values.get({
        				spreadsheetId: '1163980691',
        				range: 'Sheet1!A1:F201',
     			}).then((response) => {
-        			const table = response.result.values;
-        // Use data to populate the periodic table
-    });
-}
-			const table = [
-				
-			];
+        			table = response.result.values;
+				console.log(table);
+      
+   			});
+			}
 
 			let camera, scene, renderer;
 			let controls;
