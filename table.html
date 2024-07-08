@@ -112,17 +112,25 @@
 			import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
 			const table =[];
 			function fetchData() {
-   				gapi.client.sheets.spreadsheets.values.get({
-				apiKey: 'AIzaSyDEXUdQW7rwyY9DP9npjSl5HremiuDZ7_8',
-      				discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/sheets/v4/rest'],
-       				spreadsheetId: '1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic',
-       				range: 'Sheet1!A2:F201',
-    			}).then((response) => {
-        			table = response.result.values;
-				console.log(table);
-      
-   			});
-			}
+   			 gapi.client.init({
+    				apiKey: 'AIzaSyDEXUdQW7rwyY9DP9npjSl5HremiuDZ7_8',
+      				discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+    				}).then(function() {
+      				// Use gapi.client to make API requests
+      			gapi.client.sheets.spreadsheets.values.get({
+        			spreadsheetId: '1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic',
+        			range: 'Sheet1!A2:F201', // Adjust this range as per your sheet
+     			}).then(function(response) {
+      			console.log(response.result.values);
+     		 	}, function(reason) {
+        		console.error('Error: ' + reason.result.error.message);
+      			});
+    			}, function(error) {
+      			console.error('Error initializing Google API client: ' + error);
+    			});
+  			}
+
+  			gapi.load('client', fetchData);
 			fetchData();
 			let camera, scene, renderer;
 			let controls;
