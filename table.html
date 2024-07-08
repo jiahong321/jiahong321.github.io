@@ -102,7 +102,7 @@
 				}
 			}
 		</script>
-
+		<script src="https://apis.google.com/js/api.js"></script>
 		<script type="module">
 
 			import * as THREE from 'three';
@@ -113,8 +113,10 @@
 			const table =[];
 			function fetchData() {
    				gapi.client.sheets.spreadsheets.values.get({
+				apiKey: 'AIzaSyDEXUdQW7rwyY9DP9npjSl5HremiuDZ7_8',
+      				discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/sheets/v4/rest'],
        				spreadsheetId: '1163980691',
-       				range: 'Sheet1!A1:F201',
+       				range: 'Sheet1!A2:F201',
     			}).then((response) => {
         			table = response.result.values;
 				console.log(table);
