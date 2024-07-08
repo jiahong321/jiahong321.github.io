@@ -345,7 +345,7 @@
 		      // included, separated by spaces.
 			const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 
-			function fetchData() {
+			async function fetchData() {
 				response = await gapi.client.sheets.spreadsheets.values.get({
 			            spreadsheetId: '1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic',
 			            range: 'Sheet1!A2:F201',
@@ -359,7 +359,7 @@
 		      }
 			function gapiLoaded() {
 		        gapi.load('client', initializeGapiClient);
-				fetchData();
+			await fetchData();
 		      }
 		</script>
 		 <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
