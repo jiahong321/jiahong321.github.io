@@ -114,7 +114,9 @@
 			function fetchData() {
    			 gapi.client.init({
     				apiKey: 'AIzaSyDEXUdQW7rwyY9DP9npjSl5HremiuDZ7_8',
+				 clientId: '673963835883-5c2l20of20tadhohprtg9mdijjmvuouh.apps.googleusercontent.com',
       				discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+				 scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
     				}).then(function() {
       				// Use gapi.client to make API requests
       			gapi.client.sheets.spreadsheets.values.get({
@@ -130,7 +132,7 @@
     			});
   			}
 
-  			gapi.load('client', fetchData);
+  			gapi.load('client:auth2', fetchData);
 			fetchData();
 			let camera, scene, renderer;
 			let controls;
