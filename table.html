@@ -102,7 +102,6 @@
 				}
 			}
 		</script>
-		<script src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
 		<script type="module">
 
 			import * as THREE from 'three';
@@ -122,9 +121,6 @@
 		      // Authorization scopes required by the API; multiple scopes can be
 		      // included, separated by spaces.
 			const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
-			function gapiLoaded() {
-		        gapi.load('client', initializeGapiClient);
-		      }
 
 			function fetchData() {
       				// Use gapi.client to make API requests
@@ -137,7 +133,14 @@
 	        		console.error('Error: ' + reason.result.error.message);
 	      			});
 			}
-			fetchData();
+			
+			function gapiLoaded() {
+		        gapi.load('client', initializeGapiClient);
+				fetchData();
+		      }
+
+			
+			
 			let camera, scene, renderer;
 			let controls;
 
@@ -356,5 +359,6 @@
 			}
 
 		</script>
+		 <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
 	</body>
 </html>
