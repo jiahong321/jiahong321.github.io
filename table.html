@@ -346,15 +346,10 @@
 			const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 
 			function fetchData() {
-      				// Use gapi.client to make API requests
-	      			gapi.client.sheets.spreadsheets.values.get({
-	        			spreadsheetId: '1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic',
-	        			range: 'Sheet1!A2:F201', // Adjust this range as per your sheet
-	     			}).then(function(response) {
-	      			console.log(response.result.values);
-	     		 	}, function(reason) {
-	        		console.error('Error: ' + reason.result.error.message);
-	      			});
+				response = await gapi.client.sheets.spreadsheets.values.get({
+			            spreadsheetId: '1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic',
+			            range: 'Sheet1!A2:F201',
+			          });
 			}
 			async function initializeGapiClient() {
 		        await gapi.client.init({
