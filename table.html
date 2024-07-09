@@ -346,16 +346,36 @@
 		      // included, separated by spaces.
 			const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 
-			function fetchData() {
-				var url = "https://sheets.googleapis.com/v4/spreadsheets/1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic/values/Sheet1!A2:F201?key=AIzaSyDEXUdQW7rwyY9DP9npjSl5HremiuDZ7_8&includeGridData=true";                                                         
-				axios.get(url)
-				  .then(function (response) {
-				    console.log(response.data);                                                                                                                                                    
-				  })
-				  .catch(function (error) {
-				    console.log(error);                                                                                                                                                       
-				  }); 
-			}
+			///function fetchData() {
+			///	var url = "https://sheets.googleapis.com/v4/spreadsheets/1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic/values/Sheet1!A2:F201?key=AIzaSyDEXUdQW7rwyY9DP9npjSl5HremiuDZ7_8&includeGridData=true";                                                         
+			///	axios.get(url)
+			///	  .then(function (response) {
+			///	    console.log(response.data);                                                                                                                                                    
+			///	  })
+			///	  .catch(function (error) {
+			///	    console.log(error);                                                                                                                                                       
+			///	  }); 
+			///}
+			async function fetchData() {
+  				try {
+   					const response = await axios.get('https://sheets.googleapis.com/v4/spreadsheets/1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic/values/Sheet1!A2:F201?key=' + API_KEY);
+    					console.log(response.data);
+    // Process the data and populate the table array
+    					const values = response.data.values;
+    				for (let i = 0; i < values.length; i++) {
+      					const row = values[i];
+      					table.push(row[0]); // Symbol
+      					table.push(row[1]); // Name
+      					table.push(row[2]); // Description
+      					table.push(i % 18); // X position
+      					table.push(Math.floor(i / 18)); // Y position
+   					}
+   				 init(); // Reinitialize the scene with the new data
+  				} catch (error) {
+    					console.error('Error fetching data:', error);
+ 				 }
+				}
+			
 			async function initializeGapiClient() {
 		        await gapi.client.init({
 		          apiKey: API_KEY,
