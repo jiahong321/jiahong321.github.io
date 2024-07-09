@@ -350,7 +350,53 @@
 				var url = "https://sheets.googleapis.com/v4/spreadsheets/1uozCKzGDQXeCdvWsABDPexVPXt1XjazBnTDj31IQOic/values/DataTemplate!A2:F201?key=AIzaSyDEXUdQW7rwyY9DP9npjSl5HremiuDZ7_8";                                                         
 				axios.get(url)
 				  .then(function (response) {
-				    console.log(response.data);                                                                                                                                                    
+				    console.log(response.data);
+				    const data = response.data.values;
+				    for (let i = 0; i<data.length;i++){
+					    const person = data[i];
+					    const name = person[0];
+					    const imageUrl = person[1];
+					    const age = person[2];
+					    const country = person[3];
+					    const interest = perosn[4];
+					    const income = person[5];
+					    // Create the element for each person
+               			 const element = document.createElement('div');
+               			element.className = 'element';
+                		element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
+
+                		const number = document.createElement('div');
+                		number.className = 'number';
+                		number.textContent = i + 1;
+                		element.appendChild(number);
+
+                		const symbol = document.createElement('div');
+                		symbol.className = 'symbol';
+                		symbol.textContent = name;
+                		element.appendChild(symbol);
+
+                		const details = document.createElement('div');
+                		details.className = 'details';
+                		details.innerHTML = `${age} years<br>${country}<br>${interest}<br>${income}`;
+                		element.appendChild(details);
+
+                		const objectCSS = new CSS3DObject(element);
+                		objectCSS.position.x = Math.random() * 4000 - 2000;
+                		objectCSS.position.y = Math.random() * 4000 - 2000;
+                		objectCSS.position.z = Math.random() * 4000 - 2000;
+                		scene.add(objectCSS);
+
+                		objects.push(objectCSS);
+
+                		// Positioning logic, adjust as needed
+                		const object = new THREE.Object3D();
+                		object.position.x = (i % 5) * 280 - 550;
+                		object.position.y = -(Math.floor(i / 5) % 5) * 280 + 500;
+                		object.position.z = Math.floor(i / 25) * 1000 - 2000;
+
+                		targets.table.push(object);
+				    }
+					  transform(targets.table, 2000);
 				  })
 				  .catch(function (error) {
 				    console.log(error);                                                                                                                                                       
